@@ -134,18 +134,36 @@
 
 
 /**
+ Keyboard closing functionality
+ */
+- (IBAction)field_done_editing:(id)sender {
+    [sender resignFirstResponder];
+}
+
+
+/**
  Calculates the loan shark payments
  */
 - (IBAction)calculate:(UIButton *)sender {
     
+    // Variables
+    double loan_amount     = [self.amount_field.text doubleValue];
+    double num_of_payments = [self.number_field.text doubleValue];
+    double interest_rate   = [self.interest_field.text doubleValue];
+    double balloon_payment = [self.balloon_field.text doubleValue];
+
     double amount = 0;
     
     for (int i = 0; i < 10 ; i++ ){
         amount = amount  + 1;
     }
     
+    // Truncate excess nonsense in intrest field
+    self.interest_field.text = [NSString stringWithFormat:@"%f",interest_rate];
+    
+    // Update to display area with new calculation
     self.payment_display.text = [NSString
-                            stringWithFormat:@"%f", amount];
+                            stringWithFormat:@"%f", interest_rate];
     
 } // end calculate
 
