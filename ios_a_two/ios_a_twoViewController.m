@@ -3,7 +3,7 @@
 //  ios_a_two
 //
 //  Created by Matthew Swann on 6/20/14.
-//  Copyright (c) 2014 ___FULLUSERNAME___. All rights reserved.
+//  Copyright (c) 2014 xmera. All rights reserved.
 //
 
 #import "ios_a_twoViewController.h"
@@ -17,13 +17,106 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self set_that_orientation_my_man];
+
 }
 
+/**
+ Memory warning stuff.
+ */
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+    [self set_that_orientation_my_man];
+    
+} // end didReceiveMemoryWarning()
+
+
+/**
+ Forced rotation
+ */
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+
+    [self doLayoutForOrientation:toInterfaceOrientation];
+    
+} // end willAnimateRotationToInterfaceOrientation()
+
+
+/**
+ Refactored function for setting the orientation.
+ */
+- (void) set_that_orientation_my_man {
+
+    UIApplication *application = [UIApplication sharedApplication];
+    UIInterfaceOrientation current_orientation = application.statusBarOrientation;
+    
+    [self doLayoutForOrientation:current_orientation];
+    
+} // end set_that_orientation_my_man()
+
+
+/**
+ Resets layout based on mobile devices physical orientation.
+ */
+- (void) doLayoutForOrientation:(UIInterfaceOrientation)orientation {
+    
+    // PORTRAIT
+    if ( UIInterfaceOrientationIsPortrait(orientation) ) {
+    
+        // Title
+        self.wicked_sick.frame       = CGRectMake(40,   20, 250, 25);
+        
+        // Prompts
+        self.amount_label.frame      = CGRectMake(20,  100, 120, 25);
+        self.number_label.frame      = CGRectMake(20,  140, 120, 25);
+        self.interest_label.frame    = CGRectMake(20,  180, 120, 25);
+        self.balloon_label.frame     = CGRectMake(20,  220, 120, 25);
+        
+        // Entry Fields
+        self.amount_field.frame      = CGRectMake(150, 100, 150, 25);
+        self.number_field.frame      = CGRectMake(150, 140, 150, 25);
+        self.interest_field.frame    = CGRectMake(150, 180, 150, 25);
+        self.balloon_field.frame     = CGRectMake(150, 220, 150, 25);
+        
+        // Button
+        self.loan_shark_button.frame = CGRectMake(60,  300, 200, 25);
+        
+        // Output Venue
+        self.payment_label.frame     = CGRectMake(20,  350, 120, 25);
+        self.payment_display.frame   = CGRectMake(180, 350, 120, 25);
+        
+    } // end if portrait
+    
+    
+    // LANDSCAPE
+    else {
+    
+        // Title
+        self.wicked_sick.frame    = CGRectMake(125, 20, 250, 25);
+        
+        // Prompts
+        self.amount_label.frame   = CGRectMake(20,   80, 120, 25);
+        self.number_label.frame   = CGRectMake(20,  150, 120, 25);
+        self.interest_label.frame = CGRectMake(250,  80, 120, 25);
+        self.balloon_label.frame  = CGRectMake(250, 150, 120, 25);
+        
+        // Entry Fields
+        self.amount_field.frame   = CGRectMake(130,  80, 100, 25);
+        self.number_field.frame   = CGRectMake(130, 150, 100, 25);
+        self.interest_field.frame = CGRectMake(360,  80, 100, 25);
+        self.balloon_field.frame  = CGRectMake(360, 150, 100, 25);
+        
+        // Button
+        self.loan_shark_button.frame = CGRectMake(145, 220, 200, 25);
+        
+        // Output Venue
+        self.payment_label.frame     = CGRectMake(130, 280, 120, 25);
+        self.payment_display.frame   = CGRectMake(260, 280, 120, 25);
+        
+    } // end landscape
+    
+} // end doLayoutForOrientation()
 
 @end
