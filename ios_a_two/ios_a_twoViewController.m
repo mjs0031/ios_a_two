@@ -20,7 +20,8 @@
     
     [self set_that_orientation_my_man];
 
-}
+} // end viewDidLoad()
+
 
 /**
  Memory warning stuff.
@@ -152,18 +153,24 @@
     double interest_rate   = [self.interest_field.text doubleValue];
     double balloon_payment = [self.balloon_field.text doubleValue];
 
-    double amount = 0;
+    double amount         = 0;
+    double summation_part = 0;
+    double balloon_part   = 0;
     
-    for (int i = 0; i < 10 ; i++ ){
-        amount = amount  + 1;
+    for ( int i = 1 ; i <= num_of_payments ; i++ ){
+        summation_part = summation_part + ( 1 / pow( 1 + interest_rate, i ) );
     }
     
+    balloon_part = balloon_payment / pow( 1 + interest_rate, num_of_payments);
+    
+    amount = (loan_amount - balloon_part )/summation_part;
+    
     // Truncate excess nonsense in intrest field
-    self.interest_field.text = [NSString stringWithFormat:@"%f",interest_rate];
+    self.interest_field.text = [NSString stringWithFormat:@"%.2f",interest_rate];
     
     // Update to display area with new calculation
     self.payment_display.text = [NSString
-                            stringWithFormat:@"%f", interest_rate];
+                            stringWithFormat:@"%.2f", amount];
     
 } // end calculate
 
