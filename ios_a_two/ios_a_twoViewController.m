@@ -119,4 +119,34 @@
     
 } // end doLayoutForOrientation()
 
+
+/**
+ Keyboard closing functionality
+ */
+- (IBAction)background_tap:(id)sender {
+    
+    [self.amount_field   resignFirstResponder];
+    [self.number_field   resignFirstResponder];
+    [self.interest_field resignFirstResponder];
+    [self.balloon_field  resignFirstResponder];
+
+} // end background_tap()
+
+
+/**
+ Calculates the loan shark payments
+ */
+- (IBAction)calculate:(UIButton *)sender {
+    
+    double amount = 0;
+    
+    for (int i = 0; i < 10 ; i++ ){
+        amount = amount  + 1;
+    }
+    
+    self.payment_display.text = [NSString
+                            stringWithFormat:@"%f", amount];
+    
+} // end calculate
+
 @end

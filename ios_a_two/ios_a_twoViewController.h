@@ -37,4 +37,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *payment_display;
 
 
+// Button click action
+- (IBAction)calculate:(UIButton *)sender;
+
+
+// Exit Keyboard control
+- (IBAction)background_tap:(id)sender;
+
 @end
