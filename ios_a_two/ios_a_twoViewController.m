@@ -3,7 +3,7 @@
 //  ios_a_two
 //
 //  Created by Matthew Swann on 6/20/14.
-//  Copyright (c) 2014 xmera. All rights reserved.
+//  Copyright (c) 2014 xmera. All rights reserved. x
 //
 
 #import "ios_a_twoViewController.h"
