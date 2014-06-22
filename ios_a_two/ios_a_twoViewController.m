@@ -147,6 +147,9 @@
  */
 - (IBAction)calculate:(UIButton *)sender {
     
+    // check input
+    [self validate];
+    
     // Variables
     double loan_amount     = [self.amount_field.text doubleValue];
     double num_of_payments = [self.number_field.text doubleValue];
@@ -157,6 +160,9 @@
     double summation_part = 0;
     double balloon_part   = 0;
     
+    interest_rate = interest_rate / 100.0;
+    
+    // math part
     for ( int i = 1 ; i <= num_of_payments ; i++ ){
         summation_part = summation_part + ( 1 / pow( 1 + interest_rate, i ) );
     }
@@ -165,13 +171,71 @@
     
     amount = (loan_amount - balloon_part )/summation_part;
     
+    
     // Truncate excess nonsense in intrest field
-    self.interest_field.text = [NSString stringWithFormat:@"%.2f",interest_rate];
+    self.interest_field.text = [NSString stringWithFormat:@"%.2f",interest_rate*100];
     
     // Update to display area with new calculation
     self.payment_display.text = [NSString
                             stringWithFormat:@"%.2f", amount];
     
 } // end calculate
+
+
+/**
+ Validates the user input
+ */
+- (void) validate {
+
+    // Loan Amount
+    if ( [self.amount_field.text doubleValue] <= 0) {
+    
+        [self generate_error:@"loan must be positive and non-zero"];
+    }
+
+    // Payment Number
+    else if ( [self.number_field.text doubleValue] <= 0) {
+        
+        [self generate_error:@"gotta pay the loan back, need a positive value for payments"];
+    }
+    
+    // Interest Rate
+    else if ( [self.interest_field.text doubleValue] <= 0) {
+        
+        [self generate_error:@"interest rate must be positive and non-zero"];
+    }
+    else if ( [self.interest_field.text doubleValue] > 100) {
+        
+        [self generate_error:@"100% is tops, drop the interest rate"];
+    }
+    
+    // Balloon Payment
+    else if ( [self.balloon_field.text doubleValue] < 0) {
+        
+        [self generate_error:@"negative balloon payment? that makes no sense"];
+    }
+    
+    else {
+        // do nothing
+    }
+    
+} // end validate
+
+
+/**
+ Error Message
+ */
+- (void) generate_error: error_message {
+
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Validation Error"
+                          message:error_message
+                          delegate:nil
+                          cancelButtonTitle:@"fine, i'll fix it"
+                          otherButtonTitles:nil];
+    [alert show];
+    
+} // end generate_error
+
 
 @end
